@@ -1,0 +1,14 @@
+//
+// Created by berke on 5/20/2026.
+//
+
+#ifndef SOFTWARERENDERER_CONFIG_H
+#define SOFTWARERENDERER_CONFIG_H
+
+#define SCREEN_WIDTH 1080
+#define SCREEN_HEIGHT 960
+
+#define FOV 90.0f
+#define NEAR_PLANE 0.1f
+
+#endif //SOFTWARERENDERER_CONFIG_H
