@@ -3,9 +3,15 @@
 31	133	8010255091180259	CMakeFiles/SoftwareRenderer.dir/src/Matrix3.c.obj	40b3845e097608ba
 43	140	8010255091300279	CMakeFiles/SoftwareRenderer.dir/src/Vector3.c.obj	5e2424cc7a1d93f2
 23	155	8010255091100257	CMakeFiles/SoftwareRenderer.dir/src/InputManager.c.obj	87fed1535c2f2e24
-20	192	8010272946668962	CMakeFiles/SoftwareRenderer.dir/src/Projection.c.obj	b28bc457481ccdcc
-3	195	8010573634298656	build.ninja	aaaae4240e858248
-3	195	8010573634248627	C:/Users/berke/Desktop/CLion Projects/SoftwareRenderer/cmake-build-release-mingw64msys2/cmake_install.cmake	aaaae4240e858248
+14	185	8019466378017524	CMakeFiles/SoftwareRenderer.dir/src/Projection.c.obj	b28bc457481ccdcc
+3	195	8038063482452997	build.ninja	aaaae4240e858248
+3	195	8038063482402231	C:/Users/berke/Desktop/CLion Projects/SoftwareRenderer/cmake-build-release-mingw64msys2/cmake_install.cmake	aaaae4240e858248
 24	159	8010256015182904	CMakeFiles/SoftwareRenderer.dir/src/Texture.c.obj	ab85613f777573
-13	191	8010272946593834	CMakeFiles/SoftwareRenderer.dir/main.c.obj	d6b99a5433e3746f
-192	327	8010272948394091	SoftwareRenderer.exe	ae000be8c432b746
+14	167	8019466331720416	CMakeFiles/SoftwareRenderer.dir/main.c.obj	d6b99a5433e3746f
+186	317	8019466379735175	SoftwareRenderer.exe	ae000be8c432b746
+40	487	8044316413931690	CMakeFiles/SoftwareRenderer.dir/main.c.obj	d6b99a5433e3746f
+132	541	8044316414856814	CMakeFiles/SoftwareRenderer.dir/src/Projection.c.obj	b28bc457481ccdcc
+541	740	8044316418944071	SoftwareRenderer.exe	ae000be8c432b746
+7	376	8044439929338369	CMakeFiles/SoftwareRenderer.dir/main.c.obj	d6b99a5433e3746f
+101	430	8044439930280376	CMakeFiles/SoftwareRenderer.dir/src/Projection.c.obj	b28bc457481ccdcc
+430	598	8044439933572160	SoftwareRenderer.exe	ae000be8c432b746

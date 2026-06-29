@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <SDL3/SDL.h>
-#include <SDL3_image/SDL_image.h>
 
 #include "Headers/config.h"
 
@@ -24,8 +23,8 @@ static void clear_framebuffer(uint32_t* framebuffer, uint32_t colour) {
     }
 }
 
-static void generate_cube(Quad* outQuads, int startIndex, Vector3 offset, float size, Texture topTexture, Texture bottomTexture, Texture sideTexture) {
-    float half = size / 2.0f;
+static void generate_cube(Quad* outQuads, const int startIndex, const Vector3 offset, const float size, const Texture* topTexture, const Texture* bottomTexture, const Texture* sideTexture) {
+    const float half = size / .5f;
 
     // --- FACE 1: FRONT ---
     outQuads[startIndex + 0].vertices[0] = (Vector3){-half + offset.x,  half + offset.y, -half + offset.z};
@@ -33,7 +32,7 @@ static void generate_cube(Quad* outQuads, int startIndex, Vector3 offset, float 
     outQuads[startIndex + 0].vertices[2] = (Vector3){-half + offset.x, -half + offset.y, -half + offset.z};
     outQuads[startIndex + 0].vertices[3] = (Vector3){ half + offset.x, -half + offset.y, -half + offset.z};
 
-    outQuads[startIndex + 0].texture = sideTexture;
+    outQuads[startIndex + 0].texture = *sideTexture;
 
     // --- FACE 2: BACK ---
     outQuads[startIndex + 1].vertices[0] = (Vector3){ half + offset.x,  half + offset.y,  half + offset.z};
@@ -41,7 +40,7 @@ static void generate_cube(Quad* outQuads, int startIndex, Vector3 offset, float 
     outQuads[startIndex + 1].vertices[2] = (Vector3){ half + offset.x, -half + offset.y,  half + offset.z};
     outQuads[startIndex + 1].vertices[3] = (Vector3){-half + offset.x, -half + offset.y,  half + offset.z};
 
-    outQuads[startIndex + 1].texture = sideTexture;
+    outQuads[startIndex + 1].texture = *sideTexture;
 
     // --- FACE 3: LEFT ---
     outQuads[startIndex + 2].vertices[0] = (Vector3){-half + offset.x,  half + offset.y,  half + offset.z};
@@ -49,7 +48,7 @@ static void generate_cube(Quad* outQuads, int startIndex, Vector3 offset, float 
     outQuads[startIndex + 2].vertices[2] = (Vector3){-half + offset.x, -half + offset.y,  half + offset.z};
     outQuads[startIndex + 2].vertices[3] = (Vector3){-half + offset.x, -half + offset.y, -half + offset.z};
 
-    outQuads[startIndex + 2].texture = sideTexture;
+    outQuads[startIndex + 2].texture = *sideTexture;
 
     // --- FACE 4: RIGHT ---
     outQuads[startIndex + 3].vertices[0] = (Vector3){ half + offset.x,  half + offset.y, -half + offset.z};
@@ -57,7 +56,7 @@ static void generate_cube(Quad* outQuads, int startIndex, Vector3 offset, float 
     outQuads[startIndex + 3].vertices[2] = (Vector3){ half + offset.x, -half + offset.y, -half + offset.z};
     outQuads[startIndex + 3].vertices[3] = (Vector3){ half + offset.x, -half + offset.y,  half + offset.z};
 
-    outQuads[startIndex + 3].texture = sideTexture;
+    outQuads[startIndex + 3].texture = *sideTexture;
 
     // --- FACE 5: TOP ---
     outQuads[startIndex + 4].vertices[0] = (Vector3){-half + offset.x,  half + offset.y,  half + offset.z};
@@ -65,7 +64,7 @@ static void generate_cube(Quad* outQuads, int startIndex, Vector3 offset, float 
     outQuads[startIndex + 4].vertices[2] = (Vector3){-half + offset.x,  half + offset.y, -half + offset.z};
     outQuads[startIndex + 4].vertices[3] = (Vector3){ half + offset.x,  half + offset.y, -half + offset.z};
 
-    outQuads[startIndex + 4].texture = topTexture;
+    outQuads[startIndex + 4].texture = *topTexture;
 
     // --- FACE 6: BOTTOM ---
     outQuads[startIndex + 5].vertices[0] = (Vector3){-half + offset.x, -half + offset.y, -half + offset.z};
@@ -73,7 +72,7 @@ static void generate_cube(Quad* outQuads, int startIndex, Vector3 offset, float 
     outQuads[startIndex + 5].vertices[2] = (Vector3){-half + offset.x, -half + offset.y,  half + offset.z};
     outQuads[startIndex + 5].vertices[3] = (Vector3){ half + offset.x, -half + offset.y,  half + offset.z};
 
-    outQuads[startIndex + 5].texture = bottomTexture;
+    outQuads[startIndex + 5].texture = *bottomTexture;
 }
 
 int main(void) {
@@ -124,28 +123,42 @@ int main(void) {
     Vector3 cameraPos = {0.0f, 0.0f, 0.0f};
     Vector3 cameraDirDeg = {0.0f, 0.0f, .0f};
 
-    Texture testTexture = load_texture_from_file("C:/Users/berke/Documents/Tilky Engine/Projects/luatest/Assets/Textures/wall.png");
-    Texture grass = load_texture_from_file("C:/Users/berke/Desktop/grass.png");
-    Texture dirt = load_texture_from_file("C:/Users/berke/Desktop/dirt.png");
-    // 3 cubes * 6 faces per cube = 18 quads total
-    const int totalQuads = 18;
+    Texture kedi = load_texture_from_file("C:/Users/berke/Desktop/CLion Projects/SoftwareRenderer/kedi.png");
+
+    const int cubeCount = 1;
+    const int totalQuads = cubeCount * 6;
     Quad sceneQuads[totalQuads];
 
-    // Cube 1: Left side
-    generate_cube(sceneQuads, 0, (Vector3){-150.0f, 0.0f, 350.0f}, 80.0f, grass, dirt, dirt);
-
-    // Cube 2: Center
-    generate_cube(sceneQuads, 6, (Vector3){0.0f, 0.0f, 350.0f}, 80.0f, grass, dirt, dirt);
-
-    // Cube 3: Right side
-    generate_cube(sceneQuads, 12, (Vector3){150.0f, 0.0f, 350.0f}, 80.0f, grass, dirt, dirt);
+    generate_cube(sceneQuads, 0, (Vector3){150.0f, 0.0f, 350.0f}, 80.0f, &kedi, &kedi, &kedi);
 
     const uint32_t white = make_colour(255, 255, 255, 255);
     const uint32_t black = make_colour(0, 0, 0, 255);
 
     InputManager inputManager = {0};
+
+    uint64_t lastCounter = SDL_GetPerformanceCounter();
+
+    double fpsTimer = 0.0;
+    int fpsFrameCount = 0;
+    double displayedFPS = 0.0;
+
     bool running = true;
     while (running) {
+        const uint64_t currentCounter = SDL_GetPerformanceCounter();
+        const double deltaTime =
+            (double)(currentCounter - lastCounter) / (double)SDL_GetPerformanceFrequency();
+
+        lastCounter = currentCounter;
+
+        fpsTimer += deltaTime;
+        fpsFrameCount++;
+
+        if (fpsTimer >= 0.25) {
+            displayedFPS = (double)fpsFrameCount / fpsTimer;
+            fpsTimer = 0.0;
+            fpsFrameCount = 0;
+        }
+
         input_manager_begin_frame(&inputManager);
         float dx = 0.0f;
         float dy = 0.0f;
@@ -181,7 +194,7 @@ int main(void) {
         if (input_manager_get_key(&inputManager, SDL_SCANCODE_A)) moveRight -= 1.0f;
 
         // Prevent diagonal movement being faster
-        float length = sqrtf(moveForward * moveForward + moveRight * moveRight);
+        const float length = sqrtf(moveForward * moveForward + moveRight * moveRight);
 
         if (length > 0.0f) {
             moveForward /= length;
@@ -230,10 +243,15 @@ int main(void) {
         SDL_RenderClear(renderer);
 
         SDL_RenderTexture(renderer, framebufferTexture, NULL, NULL);
+
+        // FPS overlay, top-left
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+        SDL_RenderDebugTextFormat(renderer, 8.0f, 8.0f, "FPS: %.1f", displayedFPS);
+
         SDL_RenderPresent(renderer);
     }
 
-    destroy_texture(&testTexture);
+    destroy_texture(&kedi);
     free(depthBuffer);
     SDL_DestroyTexture(framebufferTexture);
     free(framebuffer);

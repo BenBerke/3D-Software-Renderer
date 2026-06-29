@@ -1,4 +1,4 @@
 C:\msys64\mingw64\bin\cmake.exe -DCMAKE_BUILD_TYPE=Release -DCMAKE_MAKE_PROGRAM=C:/msys64/mingw64/bin/ninja.exe -DCMAKE_C_COMPILER=C:/msys64/mingw64/bin/gcc.exe -DCMAKE_CXX_COMPILER=C:/msys64/mingw64/bin/g++.exe -DCMAKE_TOOLCHAIN_FILE=C:/path/to/vcpkg/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-mingw-dynamic -G Ninja -S "C:\Users\berke\Desktop\CLion Projects\SoftwareRenderer" -B "C:\Users\berke\Desktop\CLion Projects\SoftwareRenderer\cmake-build-release-mingw64msys2"
--- Configuring done (0.3s)
+-- Configuring done (0.8s)
 -- Generating done (0.1s)
 -- Build files have been written to: C:/Users/berke/Desktop/CLion Projects/SoftwareRenderer/cmake-build-release-mingw64msys2

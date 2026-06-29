@@ -62,14 +62,25 @@ Vector3 view_transformation(const Vector3 pos, const Vector3 cameraDir, const Ve
     return tm;
 }
 
+bool is_back_facing_2d(const Vector2 p0, const Vector2 p1, const Vector2 p2) {
+    const float x1 = p1.x - p0.x;
+    const float y1 = p1.y - p0.y;
+    const float x2 = p2.x - p0.x;
+    const float y2 = p2.y - p0.y;
+
+    const float cross_product = (x1 * y2) - (y1 * x2);
+
+    return cross_product <= 0.0f;
+}
+
 bool project_textured_vertex(
-    Vector3 worldPos,
-    Vector2 uv,
-    Vector3 cameraDir,
-    Vector3 cameraPos,
+    const Vector3 worldPos,
+    const Vector2 uv,
+    const Vector3 cameraDir,
+    const Vector3 cameraPos,
     TexturedVertex* out
 ) {
-    Vector3 cameraSpace = view_transformation(worldPos, cameraDir, cameraPos);
+    const Vector3 cameraSpace = view_transformation(worldPos, cameraDir, cameraPos);
 
     if (cameraSpace.z <= NEAR_PLANE) return false;
 
@@ -148,9 +159,9 @@ void render_textured_triangle(
             const float px = (float)x + 0.5f;
             const float py = (float)y + 0.5f;
 
-            float w0 = edge_function(v1.position.x, v1.position.y, v2.position.x, v2.position.y, px, py) / area;
-            float w1 = edge_function(v2.position.x, v2.position.y, v0.position.x, v0.position.y, px, py) / area;
-            float w2 = edge_function(v0.position.x, v0.position.y, v1.position.x, v1.position.y, px, py) / area;
+            const float w0 = edge_function(v1.position.x, v1.position.y, v2.position.x, v2.position.y, px, py) / area;
+            const float w1 = edge_function(v2.position.x, v2.position.y, v0.position.x, v0.position.y, px, py) / area;
+            const float w2 = edge_function(v0.position.x, v0.position.y, v1.position.x, v1.position.y, px, py) / area;
 
             if ((w0 >= 0.0f && w1 >= 0.0f && w2 >= 0.0f) ||
             (w0 <= 0.0f && w1 <= 0.0f && w2 <= 0.0f)) {
@@ -203,6 +214,15 @@ void render_textured_quad(
         !project_textured_vertex(quad->vertices[2], (Vector2){0.0f, 1.0f}, cameraDir, cameraPos, &bottomLeft) ||
         !project_textured_vertex(quad->vertices[3], (Vector2){1.0f, 1.0f}, cameraDir, cameraPos, &bottomRight)) {
         return;
+    }
+
+    const Vector2 p0 = { topLeft.position.x, topLeft.position.y };
+    const Vector2 p1 = { topRight.position.x, topRight.position.y };
+    const Vector2 p2 = { bottomLeft.position.x, bottomLeft.position.y };
+
+    // Cull the quad if the first triangle faces away
+    if (is_back_facing_2d(p2, p0, p1)) {
+        return; // Skip rendering entirely
     }
 
     render_textured_triangle(framebuffer, depthBuffer, bottomLeft, topLeft, topRight, texture);
