@@ -16,6 +16,15 @@ A lightweight, dependency-free 3D software renderer built from scratch in C, fea
 * **Primitive Assembly:** Supports rendering textured triangles and automatic quad-to-triangle splitting.
 
 ---
+## Performance
+
+Benchmarked on an **AMD Ryzen 7 6800H** at a framebuffer resolution of **1680 × 960**.
+
+- **400 cubes** (**2,400 quads** - **4,800 triangles**)
+- Approximately **4.3 ms rasterization time**
+- Approximately **120 FPS total**
+
+---
 
 ## Core Architecture & Math Implemented
 
