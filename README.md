@@ -38,6 +38,7 @@ Points behind the defined `NEAR_PLANE` are cleanly clipped. Valid vertices are m
 
 ### 3. Perspective-Correct Interpolation
 To solve the classic perspective mapping distortion issue, texture coordinates are linearly interpolated across the triangle face in screen space using the inverse of Z
+
 ---
 
 ## File Structure Dependencies
