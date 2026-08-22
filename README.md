@@ -2,7 +2,7 @@ https://github.com/user-attachments/assets/217ae787-5aea-4bc3-9c8a-2fdfc01d3382
 
 # 3D Software Renderer
 
-A lightweight, dependency-free 3D software renderer built from scratch in C, featuring custom linear algebra transformations, projection math, and a perspective-correct rasterizer.
+A lightweight, dependency-free 3D software renderer built from scratch in C, featuring custom linear algebra transformations, projection math, and a perspective-correct rasterizer. Written utilizing intrinsic SIMD 
 
 ---
 
